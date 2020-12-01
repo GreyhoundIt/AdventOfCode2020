@@ -33,12 +33,12 @@ class FindNumbers2020
   # we need to find 3 numbers in the list that add up to 2020 and then multiply them.
   # set a flag so we can exit when we have found the 3
   # go over the set and find the new remainder then go over the set again excluding the number we have in the main loop
-  # take the nuimber away from the running remainder and see if that is left in the set
+  # take the number away from the running remainder and see if that is left in the set
   def find_triplets_and_multiples
     done = false
     set.each do |number|
       new_total = TOTAL - number
-      exit if done
+      break if done
       set.each do |number1|
         next if number1 == number
 
@@ -56,8 +56,23 @@ class FindNumbers2020
       end
     end
   end
+
+  # below is a better solution to the problem I found after my initial work I cant take credit for this but putting it
+  # in for reference
+  # this turns the set into an array of 2 elements we can then go over these as before
+  def better_solution_to_multiples
+    set.to_a.combination(2) do |number, number1|
+      remainder = TOTAL - number - number1
+
+      if set.include?(remainder)
+        puts '------'
+        puts remainder * number * number1
+        break
+      end
+    end
+  end
 end
 
 FindNumbers2020.new.find_pairs_and_multiples
-
 FindNumbers2020.new.find_triplets_and_multiples
+FindNumbers2020.new.better_solution_to_multiples
