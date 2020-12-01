@@ -39,6 +39,7 @@ class FindNumbers2020
     set.each do |number|
       new_total = TOTAL - number
       break if done
+
       set.each do |number1|
         next if number1 == number
 
