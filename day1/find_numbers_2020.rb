@@ -21,10 +21,6 @@ class FindNumbers2020
       corresponding_number = TOTAL - number
       next unless set.include?(corresponding_number)
 
-      puts 'Pairs'
-      puts "numbers are #{number} and #{corresponding_number}"
-      puts '-------'
-      puts 'multiplied = '
       puts corresponding_number * number
       break # as we only need the first pair
     end
@@ -46,11 +42,6 @@ class FindNumbers2020
         corresponding_number = new_total - number1
         next unless set.include?(corresponding_number)
 
-        puts '-------------********-------------'
-        puts 'Triplets'
-        puts "numbers are #{number1}, #{number} and #{corresponding_number}"
-        puts '-------'
-        puts 'multiplied = '
         puts corresponding_number * number * number1
         done = true
         break # as we only need the first triplets
@@ -66,7 +57,6 @@ class FindNumbers2020
       remainder = TOTAL - number - number1
 
       if set.include?(remainder)
-        puts '------'
         puts remainder * number * number1
         break
       end
