@@ -10,7 +10,7 @@ class PasswordChecker
     @lines = input.split("\n")
   end
 
-  def count
+  def part1
     puts @lines.count { |line|
       array = line.split
       letter = array[1].tr(':', '')
@@ -21,7 +21,14 @@ class PasswordChecker
     }
   end
 
-  def count_v2
+  def part1_alternative
+   puts @lines.count { |line|
+    m = line.match(/^(?<from>\d+)-(?<to>\d+) (?<char>.): (?<password>.*)$/)
+    (m[:from].to_i..m[:to].to_i).cover?(m[:password].count(m[:char]))
+  }
+  end
+
+  def part2
     puts @lines.count { |line|
       array = line.split
       letter = array[1].tr(':', '')
@@ -33,6 +40,16 @@ class PasswordChecker
       position_1.count(letter) + position_2.count(letter) == 1
     }
   end
+
+  def part2_alternative
+    puts @lines.count { |line|
+      m = line.match(/^(?<position_1>\d+)-(?<position_2>\d+) (?<char>.): (?<password>.*)$/)
+      (m[:password][m[:position_1].to_i - 1]).count(m[:char]) + (m[:password][m[:position_2].to_i - 1]).count(m[:char]) == 1
+    }
+  end
 end
-PasswordChecker.new.count
-PasswordChecker.new.count_v2
+
+PasswordChecker.new.part1
+PasswordChecker.new.part1_alternative
+PasswordChecker.new.part2
+PasswordChecker.new.part2_alternative
