@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pry'
 
 class PasswordChecker
@@ -9,22 +11,18 @@ class PasswordChecker
   end
 
   def count
-    sum = 0
-    @lines.each do |line|
+    puts @lines.count { |line|
       array = line.split
       letter = array[1].tr(':', '')
       password_letters = array[2].split('')
-      password_letter_count = array[0].split('-')
-      min_count = password_letter_count[0].to_i
-      max_count = password_letter_count[1].to_i
-      sum += 1 if (password_letters.count(letter).to_i >= min_count) && (password_letters.count(letter) <= max_count)
-    end
-    puts sum
+      min_count, max_count = array[0].split('-').map(&:to_i)
+
+      (min_count..max_count).cover?(password_letters.count(letter))
+    }
   end
 
   def count_v2
-    sum = 0
-    @lines.each do |line|
+    puts @lines.count { |line|
       array = line.split
       letter = array[1].tr(':', '')
       password_letters = array[2].split('')
@@ -32,9 +30,8 @@ class PasswordChecker
       position_1 = password_letters[password_letter_count[0].to_i - 1]
       position_2 = password_letters[password_letter_count[1].to_i - 1]
 
-      sum += 1 if position_1.count(letter) + position_2.count(letter) == 1
-    end
-    puts sum
+      position_1.count(letter) + position_2.count(letter) == 1
+    }
   end
 end
 PasswordChecker.new.count
