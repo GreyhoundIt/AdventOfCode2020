@@ -74,7 +74,7 @@ class AirlineSeats
     end
     ids = Set.new(seats_ids)
     puts (ids.min..ids.max).find { |id|
-      ids.include?(id - 1) && ids.include?(id + 1) && !ids.include?(id)
+      !ids.include?(id)
     }
   end
 
